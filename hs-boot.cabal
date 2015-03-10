@@ -1,0 +1,35 @@
+name: hs-boot
+version: 0.1
+cabal-version: >= 1.2
+build-type: Simple
+
+executable hs-boot
+  main-is:
+    Main.hs
+  hs-source-dirs:
+    src
+  build-depends:
+      base == 4.*
+    , base-compat
+    , logging-facade
+
+test-suite spec
+  type:
+      exitcode-stdio-1.0
+  ghc-options:
+      -Wall -fno-warn-name-shadowing
+      -threaded
+      -O0
+  hs-source-dirs:
+      test, src
+  main-is:
+      Spec.hs
+  build-depends:
+      base == 4.*
+
+    , hspec
+    , directory
+    , setenv
+    , filepath
+    , silently
+    , process
