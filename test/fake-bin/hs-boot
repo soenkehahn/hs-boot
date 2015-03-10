@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-export CABAL_SANDBOX_CONFIG=../../cabal.sandbox.config
-cabal exec -- runhaskell ../../src/Main.hs $@
+export CABAL_SANDBOX_CONFIG=../../../cabal.sandbox.config
+cabal exec -- runhaskell ../../../src/Main.hs $@

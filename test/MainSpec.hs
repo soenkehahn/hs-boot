@@ -2,6 +2,7 @@
 module MainSpec where
 
 import           Control.Exception
+import           Data.Foldable
 import           System.Directory
 import           System.Environment
 import           System.FilePath
@@ -12,11 +13,12 @@ import           Test.Hspec
 spec :: Spec
 spec = do
   describe "run" $ do
-    it "performs the happy flow" $ do
-      addHsBootToPath
-      withCurrentDirectory "test/01" $ do
-        output <- capture_ $ callCommand "./compile.sh"
-        output `shouldContain` "01-success"
+    forM_ ["01", "02"] $ \ project -> do
+      it ("performs the happy flow for project " ++ project) $ do
+        addHsBootToPath
+        withCurrentDirectory ("test/projects" </> project) $ do
+          output <- capture_ $ callCommand "./compile.sh"
+          output `shouldContain` (project ++ "-success")
 
 addHsBootToPath :: IO ()
 addHsBootToPath = do
