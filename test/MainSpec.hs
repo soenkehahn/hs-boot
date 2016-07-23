@@ -26,6 +26,11 @@ addHsBootToPath = do
   dir <- getCurrentDirectory
   setEnv "PATH" (dir </> "test/fake-bin/" ++ ":" ++ path)
 
+-- fixme: test in temp directory
+-- fixme: write readme
+-- fixme: add ci
+
+-- fixme: use mockery
 withCurrentDirectory :: FilePath -> IO a -> IO a
 withCurrentDirectory directory =
   bracket enter leave . const
