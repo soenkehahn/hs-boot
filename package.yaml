@@ -1,0 +1,29 @@
+name: hs-boot
+version: "0.1"
+
+dependencies:
+  - base
+  - base-compat
+  - logging-facade
+  - directory
+
+ghc-options: -Wall -fno-warn-name-shadowing
+
+executables:
+  hs-boot:
+    main: Main.hs
+    source-dirs:
+      - src
+
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs:
+      - test
+      - src
+    dependencies:
+      - hspec
+      - setenv
+      - filepath
+      - silently
+      - process
