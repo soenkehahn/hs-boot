@@ -1,8 +1,6 @@
 
 module MainSpec where
 
-import           Control.Exception
-import           Data.Foldable
 import           System.Directory
 import           System.Environment
 import           System.FilePath
@@ -11,17 +9,21 @@ import           System.Process
 import           Test.Hspec
 import           Test.Mockery.Directory
 
+import           Run
+
 spec :: Spec
 spec = do
   describe "run" $ do
-    forM_ ["01"] $ \ project -> do
-      it ("performs the happy flow for project " ++ project) $ do
-        projectDir <- canonicalizePath $ "test/projects" </> project
-        addHsBootToPath
-        inTempDirectory $ do
-          callCommand ("cp -r " ++ projectDir </> "* .")
-          output <- capture_ $ callCommand "./compile.sh"
-          output `shouldContain` (project ++ "-success")
+    it ("performs the happy flow") $ do
+      let project = "01"
+      projectDir <- canonicalizePath $ "test/projects" </> project
+      addHsBootToPath
+      inTempDirectory $ do
+        callCommand ("cp -r " ++ projectDir </> "* .")
+        run $ words "scaffold A.hs"
+        callCommand "ghc --make Main.hs"
+        output <- capture_ $ callCommand "./Main"
+        output `shouldContain` (project ++ "-success")
 
 addHsBootToPath :: IO ()
 addHsBootToPath = do

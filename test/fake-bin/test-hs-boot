@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-loc=$(dirname $0)
-STACK_YAML=$loc/../../stack.yaml
-echo $STACK_YAML
-stack --stack-yaml $STACK_YAML exec -- runhaskell $loc/../../src/Main.hs $@
