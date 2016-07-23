@@ -19,7 +19,6 @@ main = do
            progName ++ " something something outputfile\n" ++
            "(not " ++ show args ++ ")")
 
-
 scaffold :: [FilePath] -> IO ()
 scaffold haskellModules = do
   forM_ haskellModules $ \ file -> do

@@ -13,7 +13,7 @@ import           Test.Hspec
 spec :: Spec
 spec = do
   describe "run" $ do
-    forM_ ["01", "02"] $ \ project -> do
+    forM_ ["01"] $ \ project -> do
       it ("performs the happy flow for project " ++ project) $ do
         addHsBootToPath
         withCurrentDirectory ("test/projects" </> project) $ do
