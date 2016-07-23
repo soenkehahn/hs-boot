@@ -27,3 +27,4 @@ tests:
       - filepath
       - silently
       - process
+      - mockery

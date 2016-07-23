@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-loc=$(dirname $0)
-stack exec -- runhaskell $loc/../../src/Main.hs $@

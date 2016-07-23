@@ -36,6 +36,7 @@ test-suite spec
     , filepath
     , silently
     , process
+    , mockery
   other-modules:
       MainSpec
       Main

@@ -9,14 +9,17 @@ import           System.FilePath
 import           System.IO.Silently
 import           System.Process
 import           Test.Hspec
+import           Test.Mockery.Directory
 
 spec :: Spec
 spec = do
   describe "run" $ do
     forM_ ["01"] $ \ project -> do
       it ("performs the happy flow for project " ++ project) $ do
+        projectDir <- canonicalizePath $ "test/projects" </> project
         addHsBootToPath
-        withCurrentDirectory ("test/projects" </> project) $ do
+        inTempDirectory $ do
+          callCommand ("cp -r " ++ projectDir </> "* .")
           output <- capture_ $ callCommand "./compile.sh"
           output `shouldContain` (project ++ "-success")
 
@@ -29,15 +32,3 @@ addHsBootToPath = do
 -- fixme: test in temp directory
 -- fixme: write readme
 -- fixme: add ci
-
--- fixme: use mockery
-withCurrentDirectory :: FilePath -> IO a -> IO a
-withCurrentDirectory directory =
-  bracket enter leave . const
- where
-  enter = do
-    outer <- getCurrentDirectory
-    setCurrentDirectory directory
-    return outer
-  leave outer = do
-    setCurrentDirectory outer
