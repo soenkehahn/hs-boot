@@ -21,8 +21,7 @@ spec = do
       inTempDirectory $ do
         callCommand ("cp -r " ++ projectDir </> "* .")
         run $ words "scaffold A.hs"
-        callCommand "ghc --make Main.hs"
-        output <- capture_ $ callCommand "./Main"
+        output <- capture_ $ callCommand "runhaskell Main.hs"
         output `shouldContain` (project ++ "-success")
 
 addHsBootToPath :: IO ()
