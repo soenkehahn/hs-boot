@@ -39,6 +39,7 @@ test-suite spec
     , silently
     , process
     , mockery
+    , interpolate
   other-modules:
       MainSpec
       Main

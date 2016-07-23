@@ -1,5 +1,5 @@
 
-module Run (run) where
+module Run (run, bootCode) where
 
 import           Control.Monad         (when)
 import           Data.Foldable         (forM_)
@@ -42,7 +42,10 @@ generateBootFile bootFile outFile = do
   when (not exists) $
     die ("file not found: " ++ hsFile)
   code <- readFile hsFile
-  let bootCode = unlines $
-        filter (\ line -> any (`isInfixOf` line) ["module", "::"]) $
-        lines code
-  writeFile outFile bootCode
+  writeFile outFile $ bootCode code
+
+bootCode :: String -> String
+bootCode code =
+  unlines $
+  filter (\ line -> any (`isInfixOf` line) ["module", "::"]) $
+  lines code
